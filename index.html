@@ -64,8 +64,8 @@
                     <input id= "firstClass-count" type="text" class="form-control text-center" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <button id="firstClass-increase" class="btn btn-default"><i class="fas fa-plus"></i></button>
-                    <button  id="firstClass-decrease"btn btn-default"><i class="fas fa-minus"></i></button>
+                    <button onclick="handleFirstClass(true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                    <button onclick ="handleFirstClass(false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
             
@@ -85,7 +85,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p id="">$0</p>
+                        <p id="sub-total">$0</p>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p id="">$0</p>
+                        <p id="tax-amount">$0</p>
                     </div>
                 </div>
                 <hr>
@@ -103,7 +103,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p id="">$550</p>
+                        <p id="grand-total">$0</p>
                     </div>
                 </div>
             </div>
@@ -112,6 +112,21 @@
     </main>
 
    <script> 
+
+function handleFirstClass(isIncrease){ 
+    const firstClassInput = document.getElementById("firstClass-count");
+    const firstClassCount=parseInt(firstClassInput.value);
+   
+   let firstClassNewCount =firstClassCount;
+   if(isIncrease==true){ 
+    firstClassNewCount =firstClassCount+1;
+   }
+   if(isIncrease==false && firstClassCount>0){ 
+    firstClassNewCount =firstClassCount-1;
+   }
+    firstClassInput.value =firstClassNewCount;
+calculateTotal();
+}
 
 function handleEconomy(isIncrease){ 
     const secondClassInput = document.getElementById("secondClass-count");
@@ -125,7 +140,26 @@ function handleEconomy(isIncrease){
     secondClassNewCount =secondClassCount-1;
    }
     secondClassInput.value =secondClassNewCount;
+    calculateTotal();
 
+}
+function calculateTotal(){ 
+    const firstClassInput = document.getElementById("firstClass-count");
+    const firstClassCount=parseInt(firstClassInput.value);
+
+    const secondClassInput = document.getElementById("secondClass-count");
+    const secondClassCount=parseInt(secondClassInput.value);
+    const subTotal = (firstClassCount*150)+(secondClassCount*100);
+    document.getElementById('sub-total').innerText = '$' + subTotal;
+
+    const tax = Math.round(subTotal * 0.1);
+   document.getElementById('tax-amount').innerText = '$' + tax;
+   const grandTotal= subTotal+tax;
+   document.getElementById("grand-total").innerText="$"+grandTotal;
+
+
+   
+   
 }
 
 
