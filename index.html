@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
         rel="stylesheet">
-        <!-- font awesome -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    <!-- font awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -33,7 +33,9 @@
 
         <div class="booking-content">
             <h1>Cruise Queen</h1>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book./p>
         </div>
 
 
@@ -50,7 +52,7 @@
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                    <input class="inp-style" type="date" name="">
+                        <input class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
@@ -60,23 +62,27 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150) </label>
-                   
-                    <input id= "firstClass-count" type="text" class="form-control text-center" value="0">
+
+                    <input id="firstClass-count" type="text" class="form-control text-center" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <button onclick="handleFirstClass(true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
-                    <button onclick ="handleFirstClass(false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                    <button onclick="handleTicketClass('firstClass', true)" class="btn btn-default"><i
+                            class="fas fa-plus"></i></button>
+                    <button onclick="handleTicketClass('firstClass', false)" class="btn btn-default"><i
+                            class="fas fa-minus"></i></button>
                 </div>
             </div>
-            
+
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
                     <input id="secondClass-count" type="text" class="form-control text-center" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <button onclick="handleEconomy(true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
-                    <button onclick="handleEconomy(false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                    <button onclick="handleTicketClass('secondClass', true)" class="btn btn-default"><i
+                            class="fas fa-plus"></i></button>
+                    <button onclick="handleTicketClass('secondClass', false)" class="btn btn-default"><i
+                            class="fas fa-minus"></i></button>
                 </div>
             </div>
             <div class="calculations">
@@ -111,59 +117,46 @@
         </div>
     </main>
 
-   <script> 
+    <script>
 
-function handleFirstClass(isIncrease){ 
-    const firstClassInput = document.getElementById("firstClass-count");
-    const firstClassCount=parseInt(firstClassInput.value);
-   
-   let firstClassNewCount =firstClassCount;
-   if(isIncrease==true){ 
-    firstClassNewCount =firstClassCount+1;
-   }
-   if(isIncrease==false && firstClassCount>0){ 
-    firstClassNewCount =firstClassCount-1;
-   }
-    firstClassInput.value =firstClassNewCount;
-calculateTotal();
-}
+        function handleTicketClass(ticket, isIncrease) {
+            const ticketClassInput = document.getElementById(ticket + "-count");
+            const ticketClassCount = parseInt(ticketClassInput.value);
 
-function handleEconomy(isIncrease){ 
-    const secondClassInput = document.getElementById("secondClass-count");
-    const secondClassCount=parseInt(secondClassInput.value);
-   
-   let secondClassNewCount =secondClassCount;
-   if(isIncrease==true){ 
-    secondClassNewCount =secondClassCount+1;
-   }
-   if(isIncrease==false && secondClassCount>0){ 
-    secondClassNewCount =secondClassCount-1;
-   }
-    secondClassInput.value =secondClassNewCount;
-    calculateTotal();
-
-}
-function calculateTotal(){ 
-    const firstClassInput = document.getElementById("firstClass-count");
-    const firstClassCount=parseInt(firstClassInput.value);
-
-    const secondClassInput = document.getElementById("secondClass-count");
-    const secondClassCount=parseInt(secondClassInput.value);
-    const subTotal = (firstClassCount*150)+(secondClassCount*100);
-    document.getElementById('sub-total').innerText = '$' + subTotal;
-
-    const tax = Math.round(subTotal * 0.1);
-   document.getElementById('tax-amount').innerText = '$' + tax;
-   const grandTotal= subTotal+tax;
-   document.getElementById("grand-total").innerText="$"+grandTotal;
+            let ticketClassNewCount = ticketClassCount;
+            if (isIncrease == true) {
+                ticketClassNewCount = ticketClassCount + 1;
+            }
+            if (isIncrease == false && ticketClassCount > 0) {
+                ticketClassNewCount = ticketClassCount - 1;
+            }
+            ticketClassInput.value = ticketClassNewCount;
+            calculateTotal();
+        }
+        
 
 
-   
-   
-}
+        function calculateTotal() {
+            const firstClassCount = getInputValue('firstClass');
+            const secondClassCount = getInputValue('secondClass');
+            const subTotal = (firstClassCount * 150) + (secondClassCount * 100);
+            document.getElementById('sub-total').innerText = '$' + subTotal;
+            const tax = Math.round(subTotal * 0.1);
+            document.getElementById('tax-amount').innerText = '$' + tax;
+            const grandTotal = subTotal + tax;
+            document.getElementById("grand-total").innerText = "$" + grandTotal;
+        }
 
 
-</script>
+        function getInputValue(ticket) {
+            const ticketClassInput = document.getElementById(ticket + "-count");
+            const ticketClassCount = parseInt(ticketClassInput.value);
+            return ticketClassCount;
+
+        }
+
+
+    </script>
 </body>
 
 </html>
